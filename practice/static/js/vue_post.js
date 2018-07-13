@@ -40,7 +40,10 @@ var PostList = Vue.component('post-list', {
     });
   },
   created() {
-    // Event.$on("delete", (post) )
+    Event.$on("delete", (post) => {
+      let index = this.posts.indexOf(post);
+      this.posts.splice(index, 1);
+    });
     Event.$on("submit-new-tweet", (data) => this.posts.push(data[0]) );
   }
 });
@@ -52,21 +55,21 @@ var Post = Vue.component('post-item', {
     <article class="message">
       <div class="message-header">
       <p v-text="post.fields.name"></p>
-      <button class="delete"></button>
+      <button v-on:click="deletePost()" class="delete"></button>
       </div>
       <div class="message-body" v-text="post.fields.description">
       </div>
     </article>`,
     // v-on:click="deleteProject()"
-  // methods: {
-  //     deleteProject() {
-  //           axios.delete('/post/', {
-  //               data: { pk: this.post.pk }
-  //           })
-  //     .then(response => Event.$emit("delete", this.post))
-  //     .catch(response => console.log('error: ' + response))
-  //       }
-  //   }
+  methods: {
+      deletePost() {
+            axios.delete('/posts/', {
+                data: { pk: this.post.pk }
+            })
+      .then(response => Event.$emit("delete", this.post))
+      .catch(response => console.log('error: ' + response))
+        }
+    }
 });
 
 

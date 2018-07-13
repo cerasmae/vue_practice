@@ -40,6 +40,15 @@ class PostView(View):
 		return HttpResponse(response, content_type="application/json")
 
 
+	def delete(self, request):
+		data = json.loads(request.body.decode('utf-8'))
+		pk = data.get('pk')
+		Post.objects.get(pk=pk).delete()
+
+		response = json.dumps({'status': 'ok'})
+		return HttpResponse(response, content_type="application/json")
+
+
 
 
 
