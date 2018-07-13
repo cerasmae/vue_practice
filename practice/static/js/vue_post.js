@@ -41,7 +41,7 @@ var PostList = Vue.component('post-list', {
   },
   created() {
     // Event.$on("delete", (post) )
-    Event.$on("submit", (data) => this.posts.push(data[0]) );
+    Event.$on("submit-new-tweet", (data) => this.posts.push(data[0]) );
   }
 });
 
@@ -88,7 +88,7 @@ var vue_post = new Vue({
         },
       })
       .then(response => {
-        Event.$emit("submit", response.data);
+        Event.$emit("submit-new-tweet", response.data);
         console.log('success post: '+response);
       })
       .catch(response => console.log(response))
