@@ -4,5 +4,6 @@ import views
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    url(r'^$', csrf_exempt(views.PostView), name="index"),
+	url(r'^$', views.Index.as_view(), name="index"),
+    url(r'^posts/$', csrf_exempt(views.PostView.as_view()), name="posts"),
 ]
