@@ -28,7 +28,7 @@ class Index(View):
 class PostView(View):
 
 	def get(self, request):
-		data = serializers.serialize("json", Post.objects.all())
+		data = serializers.serialize("json", Post.objects.all().order_by("-pk"))
 		return HttpResponse(data, content_type="application/json")
 
 	def post(self, request):

@@ -16,8 +16,14 @@ var InputVue = Vue.component('custom-input', {
       v-bind:value="value" 
       v-on:input="$emit('input', $event.target.value)" 
     >
-  `
-});
+  `,
+    // restartInput(){
+    //   Event.$on("restart-input", (data) => {
+    //     console.log("In Restart Input");
+    //     this.value = ""
+    //   });
+    // }
+  });
 
 
 var PostList = Vue.component('post-list', {
@@ -44,7 +50,7 @@ var PostList = Vue.component('post-list', {
       let index = this.posts.indexOf(post);
       this.posts.splice(index, 1);
     });
-    Event.$on("submit-new-tweet", (data) => this.posts.push(data[0]) );
+    Event.$on("submit-new-tweet", (data) => this.posts.unshift(data[0]) );
   }
 });
 
@@ -92,6 +98,9 @@ var vue_post = new Vue({
       })
       .then(response => {
         Event.$emit("submit-new-tweet", response.data);
+        // Event.$emit("restart-input", response.data);
+        this.name = "";
+        this.description = "";
         console.log('success post: '+response);
       })
       .catch(response => console.log(response))

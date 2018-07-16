@@ -6,43 +6,53 @@
       <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+      <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"></script> -->
       <link rel="stylesheet" href="{% static "css/main.css" %}">
       <link rel="stylesheet" href="{% static "css/bulma.min.css" %}">
 	</head>
 	<body>
 		<div class="container" id="app">
+     <!--  <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="">
+            <img src=
+          </a>
+        </div>
+      </nav> -->
+      <h1 class="title">Add a Post</h1>
+      <form method="POST" id="addPost" action="" v-on:submit.prevent="addPost">
+        {% csrf_token %}
+          <div class="field">
+            <label for="name" class="label">Name</label>
+            <div class="control">
+                <!-- <input class="input" name="name" type="text" id="name" placeholder="Enter A Name" v-model="name"> -->
+                <custom-input class="input" v-model="name" placeholder="Add A Name"> </custom-input>
+            </div>
+          </div>
+          <div class="field">
+            <label for="description" class="label">Description</label>
+            <div class="control">
+                <!-- <input class="input" name="description" id="description" placeholder="Enter a Description" v-model="description"> -->
+                <custom-input class="input" v-model="description" placeholder="Add A Description"> </custom-input>
+            </div>
+          </div>
+          <div class="control">
+              <button class="button is-primary" type="submit" @click.prevent="addPost">Submit</button>
+          </div>
+      </form>
+
       <h1 class="title">My Posts</h1>
       <post-list inline-template>
-          <div v-cloak class="columns control">
-              <div class="column" v-for="post in posts" :key="post.pk">
-                  <post-item v-bind:post="post"></post-item>
-              </div>
+<!--           <div v-cloak class="columns control">
+ -->   <div class="containter is-fluid">
+          <div class="column  is-12" v-for="post in posts" :key="post.pk">
+            <post-item v-bind:post="post"></post-item>
           </div>
-			</post-list>
-
-            <h1 class="title">Add a Post</h1>
-            <form method="POST" id="addPost" action="" v-on:submit.prevent="addPost">
-              {% csrf_token %}
-                <div class="field">
-                  <label for="name" class="label">Name</label>
-                  <div class="control">
-                      <!-- <input class="input" name="name" type="text" id="name" placeholder="Enter A Name" v-model="name"> -->
-                      <custom-input class="input" v-model="name" placeholder="Add A Name"> </custom-input>
-                  </div>
-                </div>
-                <div class="field">
-                  <label for="description" class="label">Description</label>
-                  <div class="control">
-                      <!-- <input class="input" name="description" id="description" placeholder="Enter a Description" v-model="description"> -->
-                      <custom-input class="input" v-model="description" placeholder="Add A Description"> </custom-input>
-                  </div>
-                </div>
-                <div class="control">
-                    <button class="button is-primary" type="submit" @click.prevent="addPost">Submit</button>
-                </div>
-            </form>
         </div>
+          <!-- </div> -->
+      </post-list>
+  </div>
 		<script type="text/javascript" src="{% static "js/vue_post.js" %}"></script>
 	</body>
 </html>
